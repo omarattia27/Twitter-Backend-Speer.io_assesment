@@ -11,8 +11,7 @@ const registerSchema = new mongoose.Schema({
 registerSchema.methods.generateAuthToken = function() {
     const token = jwt.sign(
       {
-        user: this.user, 
-        admin: this.admin       
+        user: this.user      
       },
       "Key"   //In real application the key will be stored in enviroment variable
     );
