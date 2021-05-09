@@ -31,10 +31,12 @@ export const postTweet = async (req, res) => {
 }
 
 export const editTweet = async (req, res) => {
-    const {text} = req.body; 
+    const {text,user} = req.body; 
     try {
-        const tweet = await schema.findByIdAndUpdate(req.params.id, {text: text});
-        if(!tweet) return(res.statust(404).send("Couldn't find the tweet"));
+        const Auth_tweet = await schema.findById(req.params.id);
+        if(!Auth_tweet) return(res.statust(404).send("Couldn't find the tweet"));
+        if(Auth_tweet.user !== user) return (res.status(400).send("Unauthorized"));
+        const tweet = await schema.findByIdAndUpdate(req.params.id, {text: text});        
         res.status(200).json(tweet);
     } catch (err) {
         console.log("put request recieved: ",req.body);
@@ -43,10 +45,12 @@ export const editTweet = async (req, res) => {
 }
 
 export const deleteTweet = async (req, res) => {
- 
+    const {user} = req.body;
     try {
+        const Auth_tweet = await schema.findById(req.params.id);
+        if(!Auth_tweet) return(res.statust(404).send("Couldn't find the tweet"));
+        if(Auth_tweet.user !== user) return (res.status(400).send("Unauthorized"));
         const tweet = await schema.findByIdAndRemove(req.params.id);
-        if(!tweet) return(res.statust(404).send("Couldn't find the tweet"));
         res.status(200).json(tweet);
     } catch (err) {
         console.log("delete request recieved: ",req.body);
