@@ -2,13 +2,13 @@ import jwt from 'jsonwebtoken';
 
 export const verify = (req, res, next) => {
     const token = req.header("token");
-    console.log(token)
     if (!token) return res.status(400).send('Authorization problem');
 
     try{
-       req.user = jwt.verify(token, "Key");
+       const decoded = jwt.verify(token, "Key");
+       req.body.user = decoded.user;     
        next();
     }catch(e){
-       res.status(400).send("Yout token is either expired or invalid");
+       res.status(400).send("Yout token is either expired or invalid",e.message);
 }
 }
