@@ -4,7 +4,7 @@ import schema from './chatSchema.js';
 
 const router = express.Router();
 
-export const getChat = async (req, res) => { 
+export const getChat = async (req, res) => {     //to fetch a a previous chat for continuing the conversation 
     const { id } = req.params;
 
     try {
@@ -16,7 +16,7 @@ export const getChat = async (req, res) => {
     }
 }
 
-export const createChat = async (req, res) => {
+export const createChat = async (req, res) => {    //For creating a new chatting room
     const { room, chat ,selectedFile} = req.body;
 
     const Chat = new schema({ room, chat, selectedFile})
@@ -31,7 +31,7 @@ export const createChat = async (req, res) => {
     }
 }
 
-export const putChat = async (req, res) => {
+export const putChat = async (req, res) => {    //For adding a message to the database
     console.log("put request recieved: ",req.body);
     const {input,user} = req.body; 
     try {
