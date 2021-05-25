@@ -16,7 +16,7 @@ app.use('/api', api);
 app.use('/user', auth);
 app.use('/api/chat', chatAPI);
 
-const CONNECTION_URL = "mongodb+srv://Omarmohamed2013:Omarmohamed2013@cluster0.0ffel.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const CONNECTION_URL = "mongodb+srv://Username:Password@cluster0.0ffel.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const PORT = process.env.PORT|| 5000;
 let server;
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
